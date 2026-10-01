@@ -3,8 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>С Днём Рождения! 🎁</title>
+<title>С Днём Рождения!</title>
 
 <style>
 * {
@@ -15,45 +14,44 @@
 
 body {
     overflow: hidden;
-    background: #f3eadc;
-    font-family: Georgia, "Times New Roman", serif;
+    background: #dcebd8;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-/* ОСНОВНОЙ ЭКРАН */
-
-.birthday {
+.scene {
     position: relative;
     width: 100vw;
     height: 100vh;
 
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
 
     overflow: hidden;
 
     background:
         radial-gradient(
-            circle at center,
-            #fffdf8 0%,
-            #f6eee2 45%,
-            #e8d7c0 100%
+            circle at 50% 45%,
+            #ffffff 0%,
+            #eef6eb 35%,
+            #c8ddc4 100%
         );
 }
 
-/* Мягкое свечение */
+/* Свет в центре */
 
-.birthday::before {
+.scene::before {
     content: "";
     position: absolute;
 
-    width: 650px;
-    height: 650px;
+    width: 600px;
+    height: 600px;
 
-    background: #fff;
     border-radius: 50%;
 
-    filter: blur(120px);
+    background: white;
+
+    filter: blur(110px);
     opacity: .55;
 }
 
@@ -61,70 +59,84 @@ body {
 
 .center {
     position: relative;
-    z-index: 5;
+    z-index: 10;
 
     text-align: center;
 
-    animation: centerAppear 1.8s cubic-bezier(.16,1,.3,1);
+    animation: entrance 1.3s cubic-bezier(.16,1,.3,1);
 }
 
-.small-title {
-    color: #9c8061;
+/* Маленькая надпись */
 
-    font-size: 14px;
-    letter-spacing: 7px;
+.top {
+    margin-bottom: 25px;
+
+    color: #66806a;
+
+    font-size: 12px;
+    font-weight: bold;
+
+    letter-spacing: 6px;
 
     text-transform: uppercase;
 
-    margin-bottom: 22px;
-
-    opacity: 0;
-    animation: fadeUp 1s ease .4s forwards;
+    animation: fade .9s ease;
 }
+
+/* ГЛАВНОЕ ПОЗДРАВЛЕНИЕ */
 
 .title {
-    font-size: clamp(48px, 9vw, 120px);
+    display: flex;
+    flex-direction: column;
 
-    line-height: .95;
+    gap: 5px;
 
-    color: #6f5137;
+    font-family:
+        Impact,
+        "Arial Black",
+        Arial,
+        sans-serif;
 
-    font-weight: 700;
+    font-weight: 900;
+
+    font-size: clamp(48px, 8vw, 110px);
+
+    line-height: .9;
+
+    letter-spacing: -3px;
+
+    color: #304c35;
 
     text-shadow:
-        0 3px 0 #fff,
-        0 10px 35px rgba(90,60,30,.15);
+        5px 5px 0 #a9c7a5,
+        10px 14px 30px rgba(45,75,50,.18);
 
-    opacity: 0;
-
-    animation:
-        titleAppear 1.5s cubic-bezier(.16,1,.3,1) .7s forwards;
+    transform: skew(-4deg);
 }
 
-.subtitle {
-    margin-top: 28px;
+/* Разные наклоны строк */
 
-    color: #9c8061;
+.title .line1 {
+    transform: rotate(-2deg);
+}
 
-    font-size: 17px;
+.title .line2 {
+    transform: rotate(2deg);
+}
+
+/* Нижняя подпись */
+
+.bottom {
+    margin-top: 30px;
+
+    color: #607a64;
+
+    font-size: 14px;
+    font-weight: bold;
+
     letter-spacing: 4px;
 
-    opacity: 0;
-
-    animation: fadeUp 1s ease 1.5s forwards;
-}
-
-/* ДЕКОРАТИВНАЯ ЛИНИЯ */
-
-.line {
-    width: 0;
-    height: 1px;
-
-    background: #b99b78;
-
-    margin: 28px auto 0;
-
-    animation: lineAppear 1.2s ease 1.8s forwards;
+    animation: fade 1s ease .8s both;
 }
 
 /* ПОДАРКИ */
@@ -132,54 +144,45 @@ body {
 .gift {
     position: absolute;
 
-    font-size: 90px;
-
-    z-index: 3;
-
-    filter:
-        drop-shadow(0 15px 20px rgba(80,50,20,.18));
-
-    animation: giftFloat 4s ease-in-out infinite;
-}
-
-.gift1 {
-    left: 8%;
-    bottom: 12%;
-
-    transform: rotate(-12deg);
-
-    animation-delay: .4s;
-}
-
-.gift2 {
-    right: 8%;
-    bottom: 13%;
-
-    transform: rotate(10deg);
-
-    animation-delay: 1.2s;
-}
-
-.gift3 {
-    left: 13%;
-    top: 12%;
+    z-index: 5;
 
     font-size: 65px;
 
-    transform: rotate(12deg);
+    filter:
+        drop-shadow(0 12px 12px rgba(40,70,40,.18));
 
-    animation-delay: 2s;
+    animation: float 4s ease-in-out infinite;
+}
+
+.gift1 {
+    left: 7%;
+    bottom: 10%;
+    transform: rotate(-12deg);
+}
+
+.gift2 {
+    right: 7%;
+    bottom: 11%;
+    transform: rotate(12deg);
+    animation-delay: 1s;
+}
+
+.gift3 {
+    left: 10%;
+    top: 12%;
+
+    font-size: 45px;
+
+    animation-delay: 1.5s;
 }
 
 .gift4 {
-    right: 14%;
-    top: 10%;
+    right: 10%;
+    top: 13%;
 
-    font-size: 70px;
+    font-size: 48px;
 
-    transform: rotate(-10deg);
-
-    animation-delay: 1.6s;
+    animation-delay: 2s;
 }
 
 /* ХЛОПУШКИ */
@@ -187,68 +190,63 @@ body {
 .party {
     position: absolute;
 
-    font-size: 75px;
+    z-index: 6;
 
-    z-index: 4;
+    font-size: 60px;
 
-    filter:
-        drop-shadow(0 10px 15px rgba(80,50,20,.15));
-
-    animation: partyFloat 3.5s ease-in-out infinite;
+    animation: party 3s ease-in-out infinite;
 }
 
 .party1 {
-    left: 5%;
-    top: 42%;
-
+    left: 3%;
+    top: 45%;
     transform: rotate(-25deg);
 }
 
 .party2 {
-    right: 5%;
-    top: 43%;
-
+    right: 3%;
+    top: 44%;
     transform: rotate(25deg);
 
     animation-delay: 1s;
 }
 
-/* БЛЁСТКИ */
+/* ЗВЁЗДЫ */
 
-.sparkle {
+.star {
     position: absolute;
 
-    color: #b99b78;
+    color: #6f906f;
 
-    font-size: 22px;
+    font-size: 25px;
 
-    animation: sparkle 3s ease-in-out infinite;
+    animation: sparkle 2.5s ease-in-out infinite;
 }
 
 .s1 {
-    left: 25%;
-    top: 18%;
+    left: 22%;
+    top: 20%;
 }
 
 .s2 {
-    right: 25%;
-    top: 22%;
+    right: 22%;
+    top: 23%;
 
-    animation-delay: 1s;
+    animation-delay: .7s;
 }
 
 .s3 {
-    left: 24%;
-    bottom: 22%;
+    left: 22%;
+    bottom: 21%;
 
-    animation-delay: 1.8s;
+    animation-delay: 1.4s;
 }
 
 .s4 {
-    right: 24%;
+    right: 22%;
     bottom: 20%;
 
-    animation-delay: 2.4s;
+    animation-delay: 2s;
 }
 
 /* КОНФЕТТИ */
@@ -256,46 +254,36 @@ body {
 .confetti {
     position: absolute;
 
-    top: -30px;
+    top: -25px;
 
-    width: 8px;
-    height: 18px;
+    width: 7px;
+    height: 16px;
 
-    z-index: 2;
+    border-radius: 2px;
 
     animation: fall linear infinite;
 }
 
 /* АНИМАЦИИ */
 
-@keyframes centerAppear {
-    from {
-        transform: scale(.85);
-    }
-
-    to {
-        transform: scale(1);
-    }
-}
-
-@keyframes titleAppear {
+@keyframes entrance {
     from {
         opacity: 0;
-        transform: translateY(35px) scale(.92);
-        filter: blur(12px);
+        transform: scale(.7);
+        filter: blur(15px);
     }
 
     to {
         opacity: 1;
-        transform: translateY(0) scale(1);
+        transform: scale(1);
         filter: blur(0);
     }
 }
 
-@keyframes fadeUp {
+@keyframes fade {
     from {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(15px);
     }
 
     to {
@@ -304,29 +292,23 @@ body {
     }
 }
 
-@keyframes lineAppear {
-    to {
-        width: 180px;
-    }
-}
-
-@keyframes giftFloat {
+@keyframes float {
     0%, 100% {
         transform: translateY(0) rotate(-10deg);
     }
 
     50% {
-        transform: translateY(-18px) rotate(-5deg);
+        transform: translateY(-18px) rotate(-4deg);
     }
 }
 
-@keyframes partyFloat {
+@keyframes party {
     0%, 100% {
         transform: translateY(0) rotate(-20deg);
     }
 
     50% {
-        transform: translateY(-15px) rotate(-12deg);
+        transform: translateY(-15px) rotate(-8deg);
     }
 }
 
@@ -338,7 +320,7 @@ body {
 
     50% {
         opacity: 1;
-        transform: scale(1.4) rotate(180deg);
+        transform: scale(1.5) rotate(180deg);
     }
 }
 
@@ -350,45 +332,39 @@ body {
     }
 }
 
-/* МОБИЛЬНЫЙ */
+/* ТЕЛЕФОН */
 
 @media (max-width: 600px) {
 
     .title {
-        font-size: 52px;
+        font-size: 50px;
+        letter-spacing: -2px;
     }
 
     .gift {
-        font-size: 55px;
+        font-size: 42px;
     }
 
     .party {
-        font-size: 48px;
+        font-size: 40px;
     }
 
-    .gift1 {
-        left: 3%;
+    .top {
+        font-size: 9px;
+        letter-spacing: 4px;
     }
 
-    .gift2 {
-        right: 3%;
+    .bottom {
+        font-size: 10px;
+        letter-spacing: 2px;
     }
-
-    .party1 {
-        left: 1%;
-    }
-
-    .party2 {
-        right: 1%;
-    }
-
 }
 </style>
 </head>
 
 <body>
 
-<div class="birthday">
+<div class="scene">
 
     <!-- ПОДАРКИ -->
 
@@ -402,31 +378,36 @@ body {
     <div class="party party1">🎉</div>
     <div class="party party2">🎊</div>
 
-    <!-- БЛЁСТКИ -->
+    <!-- ЗВЁЗДЫ -->
 
-    <div class="sparkle s1">✦</div>
-    <div class="sparkle s2">✧</div>
-    <div class="sparkle s3">✦</div>
-    <div class="sparkle s4">✧</div>
+    <div class="star s1">✦</div>
+    <div class="star s2">✧</div>
+    <div class="star s3">✦</div>
+    <div class="star s4">✧</div>
 
-    <!-- ТЕКСТ -->
+    <!-- ГЛАВНЫЙ ТЕКСТ -->
 
     <div class="center">
 
-        <div class="small-title">
-            Сегодня особенный день
+        <div class="top">
+            TODAY IS YOUR DAY
         </div>
 
         <div class="title">
-            С Днём<br>
-            Рождения!
+
+            <div class="line1">
+                С ДНЁМ
+            </div>
+
+            <div class="line2">
+                РОЖДЕНИЯ!
+            </div>
+
         </div>
 
-        <div class="subtitle">
-            ✦ для самого лучшего друга ✦
+        <div class="bottom">
+            🎂 СЧАСТЬЯ • РАДОСТИ • УДАЧИ 🎂
         </div>
-
-        <div class="line"></div>
 
     </div>
 
@@ -436,22 +417,23 @@ body {
 
 </div>
 
-
 <script>
 
-const container = document.getElementById("confetti");
+const container =
+    document.getElementById("confetti");
 
 const colors = [
-    "#b99b78",
-    "#d6b98c",
-    "#8c6b4b",
-    "#ffffff",
-    "#e2c7a6"
+    "#304c35",
+    "#57705b",
+    "#8aaa8b",
+    "#d4b85a",
+    "#ffffff"
 ];
 
 for (let i = 0; i < 100; i++) {
 
-    const piece = document.createElement("div");
+    const piece =
+        document.createElement("div");
 
     piece.className = "confetti";
 
@@ -459,16 +441,17 @@ for (let i = 0; i < 100; i++) {
         Math.random() * 100 + "vw";
 
     piece.style.background =
-        colors[Math.floor(Math.random() * colors.length)];
+        colors[
+            Math.floor(
+                Math.random() * colors.length
+            )
+        ];
 
     piece.style.animationDuration =
-        (5 + Math.random() * 6) + "s";
+        (4 + Math.random() * 5) + "s";
 
     piece.style.animationDelay =
         Math.random() * 5 + "s";
-
-    piece.style.transform =
-        `rotate(${Math.random() * 360}deg)`;
 
     container.appendChild(piece);
 }
