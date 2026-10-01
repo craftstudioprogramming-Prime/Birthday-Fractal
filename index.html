@@ -4,332 +4,848 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>С Днём Рождения!</title>
+<title>С Днём Рождения</title>
 
 <style>
 * {
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
 }
 
 body {
     overflow: hidden;
-    font-family: Arial, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #07191d;
+    color: white;
 }
 
-.scene {
-    position: relative;
-    width: 100vw;
-    height: 100vh;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+/* =========================
+   ФОН
+========================= */
 
+.page {
+    position: fixed;
+    inset: 0;
     overflow: hidden;
-    background: #111;
 }
 
-/* ФОТО НА ФОНЕ */
-
-.scene::before {
+.page::before {
     content: "";
     position: absolute;
-    inset: -25px;
+    inset: -30px;
 
-    background-image:
-        linear-gradient(
-            rgba(0, 25, 35, .25),
-            rgba(0, 25, 35, .35)
-        ),
-        url("background.png");
+    background:
+        url("background.png")
+        center / cover
+        no-repeat;
 
-    background-size: cover;
-    background-position: center;
+    filter: blur(11px);
+    transform: scale(1.08);
 
-    filter: blur(8px);
-
-    transform: scale(1.04);
-
-    z-index: 0;
+    opacity: .68;
 }
 
-/* ЛЁГКОЕ СВЕЧЕНИЕ */
-
-.scene::after {
+.page::after {
     content: "";
     position: absolute;
     inset: 0;
 
     background:
-        radial-gradient(
-            circle at center,
-            rgba(255,255,255,.18),
-            transparent 45%
+        linear-gradient(
+            135deg,
+            rgba(0, 20, 25, .72),
+            rgba(0, 0, 0, .38)
         );
-
-    z-index: 1;
 }
 
-/* ЦЕНТР */
 
-.content {
-    position: relative;
-    z-index: 5;
+/* =========================
+   ЗАСТАВКА
+========================= */
+
+.splash {
+    position: absolute;
+    inset: 0;
+    z-index: 50;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     text-align: center;
 
-    color: white;
-
-    animation: show 1.2s ease;
+    transition:
+        opacity 1.2s ease,
+        visibility 1.2s ease;
 }
 
-/* маленькая надпись */
+.splash.hide {
+    opacity: 0;
+    visibility: hidden;
+}
 
-.small {
-    font-size: 13px;
+.splash-content {
+    animation: splashIn 1.5s ease;
+}
+
+.splash-small {
+    margin-bottom: 22px;
+
+    font-size: 12px;
     letter-spacing: 5px;
 
-    opacity: .85;
-
-    margin-bottom: 20px;
+    color: rgba(255,255,255,.7);
 
     text-transform: uppercase;
 }
 
-/* ГЛАВНАЯ НАДПИСЬ */
+.splash-title {
+    font-size: clamp(52px, 10vw, 105px);
 
-h1 {
-    font-size: clamp(52px, 9vw, 110px);
+    line-height: .9;
 
-    font-weight: 700;
+    font-weight: 900;
 
-    line-height: .95;
-
-    letter-spacing: -2px;
+    letter-spacing: -5px;
 
     text-shadow:
-        0 3px 15px rgba(0,0,0,.45),
-        0 0 25px rgba(50,240,255,.35);
+        0 10px 40px rgba(0,0,0,.4);
 }
 
-h1 span {
-    color: #8fffff;
+.splash-title span {
+    color: #69eeee;
+
+    text-shadow:
+        0 0 35px rgba(80,240,240,.5);
 }
 
-/* ЛИНИЯ */
+@keyframes splashIn {
+
+    from {
+        opacity: 0;
+        transform:
+            scale(.9)
+            translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform:
+            scale(1)
+            translateY(0);
+    }
+}
+
+
+/* =========================
+   ОСНОВНОЙ ЭКРАН
+========================= */
+
+.main {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition:
+        opacity 1s ease,
+        visibility 1s ease;
+}
+
+.main.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+/* =========================
+   ТЕКСТ
+========================= */
+
+.greeting {
+    width: min(
+        780px,
+        calc(100% - 35px)
+    );
+
+    text-align: center;
+
+    opacity: 0;
+
+    transform:
+        translateY(20px)
+        scale(.96);
+
+    pointer-events: none;
+}
+
+.main.party .greeting {
+    pointer-events: auto;
+
+    animation:
+        greetingAppear 1.2s ease forwards,
+        gentleMove 4s ease-in-out 1.2s infinite;
+}
+
+@keyframes greetingAppear {
+
+    from {
+        opacity: 0;
+
+        transform:
+            translateY(30px)
+            scale(.95);
+    }
+
+    to {
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+    }
+}
+
+@keyframes gentleMove {
+
+    0%,
+    100% {
+        transform:
+            translateY(0)
+            rotate(0deg);
+    }
+
+    25% {
+        transform:
+            translateY(-2px)
+            rotate(.25deg);
+    }
+
+    50% {
+        transform:
+            translateY(1px)
+            rotate(-.25deg);
+    }
+
+    75% {
+        transform:
+            translateY(-1px)
+            rotate(.2deg);
+    }
+}
+
+
+/* маленький текст */
+
+.small-text {
+    margin-bottom: 18px;
+
+    font-size: 12px;
+    letter-spacing: 4px;
+
+    color: rgba(255,255,255,.65);
+
+    text-transform: uppercase;
+}
+
+
+/* заголовок */
+
+.title {
+    font-size: clamp(
+        48px,
+        8vw,
+        88px
+    );
+
+    line-height: .92;
+
+    font-weight: 900;
+
+    letter-spacing: -4px;
+
+    text-shadow:
+        0 12px 45px rgba(0,0,0,.4);
+}
+
+.title span {
+    color: #69eeee;
+
+    text-shadow:
+        0 0 35px rgba(80,240,240,.5);
+}
+
+
+/* линия */
 
 .line {
-    width: 90px;
-    height: 3px;
+    width: 65px;
+    height: 2px;
 
-    background: #7ff7ff;
+    margin: 28px auto;
 
-    margin: 25px auto;
-
-    border-radius: 10px;
+    background: #69eeee;
 
     box-shadow:
-        0 0 15px #7ff7ff;
+        0 0 20px rgba(80,240,240,.6);
 }
 
-/* НИЖНИЙ ТЕКСТ */
 
-.message {
-    font-size: 15px;
+/* пожелание */
+
+.wish {
+    max-width: 650px;
+
+    margin: auto;
+
+    color: rgba(255,255,255,.88);
+
+    font-size: clamp(
+        15px,
+        2vw,
+        19px
+    );
+
+    line-height: 1.6;
+
+    text-shadow:
+        0 5px 20px rgba(0,0,0,.35);
+}
+
+.wish strong {
+    color: white;
+}
+
+
+/* =========================
+   КНОПКА
+========================= */
+
+.magic-button {
+    position: absolute;
+
+    left: 50%;
+    bottom: 28px;
+
+    transform: translateX(-50%);
+
+    z-index: 30;
+
+    padding: 8px 12px;
+
+    border: none;
+
+    background: transparent;
+
+    color: rgba(255,255,255,.3);
+
+    font-size: 10px;
 
     letter-spacing: 2px;
 
-    opacity: .9;
+    cursor: pointer;
 
-    text-shadow:
-        0 2px 8px rgba(0,0,0,.5);
+    transition: .4s ease;
 }
 
-/* ЗВЁЗДЫ */
+.magic-button:hover {
+    color: rgba(255,255,255,.7);
+}
+
+.magic-button.active {
+    color: rgba(105,238,238,.7);
+}
+
+
+/* =========================
+   ОТ ДАВИДА
+========================= */
+
+.author {
+    position: absolute;
+
+    right: 28px;
+    bottom: 25px;
+
+    color: rgba(255,255,255,.32);
+
+    font-size: 10px;
+
+    letter-spacing: 3px;
+
+    text-transform: uppercase;
+
+    opacity: 1;
+
+    transition: .5s ease;
+}
+
+
+/* =========================
+   ЗВЁЗДЫ
+========================= */
+
+.stars {
+    position: absolute;
+    inset: 0;
+
+    z-index: 5;
+
+    pointer-events: none;
+}
 
 .star {
     position: absolute;
 
-    z-index: 4;
+    opacity: 0;
 
     color: white;
 
-    font-size: 20px;
+    font-size: 14px;
 
     text-shadow:
-        0 0 12px #65f7ff;
-
-    animation: sparkle 2s infinite;
+        0 0 12px white,
+        0 0 25px #69eeee;
 }
 
-.star1 {
-    left: 15%;
+
+/* позиции */
+
+.star:nth-child(1) {
+    left: 12%;
     top: 20%;
+    animation-delay: .1s;
 }
 
-.star2 {
-    right: 15%;
-    top: 25%;
-
-    animation-delay: .7s;
-}
-
-.star3 {
-    left: 20%;
-    bottom: 20%;
-
+.star:nth-child(2) {
+    left: 25%;
+    top: 70%;
     animation-delay: 1.2s;
 }
 
-.star4 {
-    right: 20%;
-    bottom: 18%;
-
-    animation-delay: 1.7s;
+.star:nth-child(3) {
+    left: 78%;
+    top: 20%;
+    animation-delay: 2s;
 }
 
-/* КОНФЕТТИ */
+.star:nth-child(4) {
+    left: 87%;
+    top: 65%;
+    animation-delay: .7s;
+}
 
-.confetti {
+.star:nth-child(5) {
+    left: 68%;
+    top: 42%;
+    animation-delay: 1.6s;
+}
+
+.star:nth-child(6) {
+    left: 17%;
+    top: 45%;
+    animation-delay: 2.5s;
+}
+
+.star:nth-child(7) {
+    left: 53%;
+    top: 15%;
+    animation-delay: .5s;
+}
+
+.star:nth-child(8) {
+    left: 45%;
+    top: 82%;
+    animation-delay: 1.8s;
+}
+
+
+/* звёзды включаются только после кнопки */
+
+.stars.active .star {
+    animation:
+        starAnimation 3s ease-in-out infinite;
+}
+
+@keyframes starAnimation {
+
+    0% {
+        opacity: 0;
+
+        transform:
+            scale(.2)
+            rotate(0);
+    }
+
+    35% {
+        opacity: 1;
+
+        transform:
+            scale(1.3)
+            rotate(45deg);
+    }
+
+    65% {
+        opacity: .65;
+
+        transform:
+            scale(.9)
+            rotate(90deg);
+    }
+
+    100% {
+        opacity: 0;
+
+        transform:
+            scale(.2)
+            rotate(135deg);
+    }
+}
+
+
+/* =========================
+   ЧАСТИЦЫ
+========================= */
+
+.particle {
     position: absolute;
 
-    top: -20px;
+    z-index: 4;
 
-    width: 5px;
-    height: 12px;
+    width: 4px;
+    height: 4px;
 
-    z-index: 3;
+    border-radius: 50%;
 
-    border-radius: 2px;
+    background: #69eeee;
 
-    animation: fall linear infinite;
+    box-shadow:
+        0 0 12px #69eeee;
+
+    pointer-events: none;
+
+    animation:
+        particleAnimation 4s
+        ease-in-out infinite;
 }
 
-/* АНИМАЦИИ */
+@keyframes particleAnimation {
 
-@keyframes show {
-    from {
+    0% {
         opacity: 0;
-        transform: scale(.92);
-        filter: blur(8px);
-    }
 
-    to {
-        opacity: 1;
-        transform: scale(1);
-        filter: blur(0);
-    }
-}
-
-@keyframes sparkle {
-    0%,100% {
-        opacity: .25;
-        transform: scale(.7);
-    }
-
-    50% {
-        opacity: 1;
-        transform: scale(1.4);
-    }
-}
-
-@keyframes fall {
-    to {
         transform:
-            translateY(110vh)
-            rotate(500deg);
+            translateY(20px)
+            scale(.4);
+    }
+
+    30% {
+        opacity: .8;
+    }
+
+    70% {
+        opacity: .5;
+    }
+
+    100% {
+        opacity: 0;
+
+        transform:
+            translateY(-50px)
+            scale(1);
     }
 }
 
-/* ТЕЛЕФОН */
+
+/* =========================
+   МОБИЛЬНЫЕ
+========================= */
 
 @media (max-width: 600px) {
 
-    h1 {
-        font-size: 52px;
+    .splash-small {
+        font-size: 9px;
+        letter-spacing: 3px;
+        margin-bottom: 18px;
     }
 
-    .small {
+    .splash-title {
+        font-size: 55px;
+        letter-spacing: -3px;
+    }
+
+    .small-text {
         font-size: 9px;
         letter-spacing: 3px;
     }
 
-    .message {
-        font-size: 11px;
+    .title {
+        font-size: 54px;
+        letter-spacing: -3px;
+    }
+
+    .line {
+        margin: 22px auto;
+    }
+
+    .wish {
+        padding: 0 10px;
+
+        font-size: 15px;
+
+        line-height: 1.55;
+    }
+
+    .magic-button {
+        bottom: 20px;
+    }
+
+    .author {
+        right: 18px;
+        bottom: 18px;
+
+        font-size: 8px;
+        letter-spacing: 2px;
     }
 }
 </style>
 </head>
 
+
 <body>
 
-<div class="scene">
+<div class="page">
 
-    <div class="star star1">✦</div>
-    <div class="star star2">✧</div>
-    <div class="star star3">✦</div>
-    <div class="star star4">✧</div>
 
-    <div class="content">
+    <!-- =====================
+         ЗАСТАВКА
+    ====================== -->
 
-        <div class="small">
-            Для самого лучшего друга
-        </div>
+    <div class="splash" id="splash">
 
-        <h1>
-            С Днём<br>
-            <span>Рождения!</span>
-        </h1>
+        <div class="splash-content">
 
-        <div class="line"></div>
+            <div class="splash-small">
+                Для самого лучшего друга
+            </div>
 
-        <div class="message">
-            Пусть этот день запомнится надолго ✦
+            <div class="splash-title">
+                С Днём<br>
+                <span>Рождения!</span>
+            </div>
+
         </div>
 
     </div>
 
-    <div id="confetti"></div>
+
+    <!-- =====================
+         ЗВЁЗДЫ
+    ====================== -->
+
+    <div class="stars" id="stars">
+
+        <span class="star">✦</span>
+        <span class="star">✦</span>
+        <span class="star">✦</span>
+        <span class="star">✦</span>
+        <span class="star">✦</span>
+        <span class="star">✦</span>
+        <span class="star">✦</span>
+        <span class="star">✦</span>
+
+    </div>
+
+
+    <!-- =====================
+         ОСНОВНОЙ ЭКРАН
+    ====================== -->
+
+    <main class="main" id="main">
+
+
+        <div class="greeting">
+
+            <div class="small-text">
+                Сегодня твой день ✦
+            </div>
+
+
+            <div class="title">
+                С Днём<br>
+                <span>Рождения!</span>
+            </div>
+
+
+            <div class="line"></div>
+
+
+            <div class="wish">
+
+                Желаю тебе, чтобы
+                <strong>твои идеи</strong>
+                превращались в крутые проекты,
+                всё задуманное получалось,
+                а впереди было ещё много
+                вдохновения, новых идей
+                и крутых достижений. ✦
+
+            </div>
+
+        </div>
+
+
+        <!-- кнопка -->
+
+        <button
+            class="magic-button"
+            id="magicButton"
+            onclick="startMagic()"
+        >
+            нажми ✦
+        </button>
+
+
+        <!-- подпись -->
+
+        <div class="author">
+            От Давида
+        </div>
+
+
+    </main>
 
 </div>
 
+
 <script>
 
-const container =
-    document.getElementById("confetti");
+/* =========================
+   ЧЕРЕЗ 5 СЕКУНД УБИРАЕМ
+   ЗАСТАВКУ
+========================= */
 
-const colors = [
-    "#ffffff",
-    "#7ff7ff",
-    "#45e9f5"
-];
+setTimeout(() => {
 
-for (let i = 0; i < 60; i++) {
+    document
+        .getElementById("splash")
+        .classList.add("hide");
 
-    const piece =
-        document.createElement("div");
+    document
+        .getElementById("main")
+        .classList.add("show");
 
-    piece.className = "confetti";
+}, 5000);
 
-    piece.style.left =
-        Math.random() * 100 + "vw";
 
-    piece.style.background =
-        colors[
-            Math.floor(
-                Math.random() * colors.length
-            )
-        ];
+/* =========================
+   КНОПКА
+========================= */
 
-    piece.style.animationDuration =
-        (5 + Math.random() * 5) + "s";
+function startMagic() {
 
-    piece.style.animationDelay =
-        Math.random() * 5 + "s";
+    const main =
+        document.getElementById("main");
 
-    container.appendChild(piece);
+    const button =
+        document.getElementById("magicButton");
+
+    const stars =
+        document.getElementById("stars");
+
+
+    /* показываем поздравление */
+
+    main.classList.add("party");
+
+
+    /* включаем звёзды */
+
+    stars.classList.add("active");
+
+
+    /* кнопка */
+
+    button.classList.add("active");
+
+    button.textContent = "✦ ✦ ✦";
+
+
+    setTimeout(() => {
+
+        button.textContent = "ещё раз ✦";
+
+    }, 1500);
+
+
+    /* частицы */
+
+    createParticles();
+
+}
+
+
+/* =========================
+   ЧАСТИЦЫ
+========================= */
+
+function createParticles() {
+
+    const page =
+        document.querySelector(".page");
+
+
+    for (let i = 0; i < 28; i++) {
+
+        const particle =
+            document.createElement("div");
+
+
+        particle.className =
+            "particle";
+
+
+        particle.style.left =
+            Math.random() * 100 + "%";
+
+
+        particle.style.top =
+            15 + Math.random() * 75 + "%";
+
+
+        particle.style.animationDelay =
+            Math.random() * 2 + "s";
+
+
+        particle.style.animationDuration =
+            3 + Math.random() * 3 + "s";
+
+
+        page.appendChild(particle);
+
+
+        setTimeout(() => {
+
+            particle.remove();
+
+        }, 7000);
+
+    }
+
 }
 
 </script>
