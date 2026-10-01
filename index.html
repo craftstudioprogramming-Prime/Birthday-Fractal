@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>С Днём Рождения! 🎁</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    overflow: hidden;
+    background: #f3eadc;
+    font-family: Georgia, "Times New Roman", serif;
+}
+
+/* ОСНОВНОЙ ЭКРАН */
+
+.birthday {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at center,
+            #fffdf8 0%,
+            #f6eee2 45%,
+            #e8d7c0 100%
+        );
+}
+
+/* Мягкое свечение */
+
+.birthday::before {
+    content: "";
+    position: absolute;
+
+    width: 650px;
+    height: 650px;
+
+    background: #fff;
+    border-radius: 50%;
+
+    filter: blur(120px);
+    opacity: .55;
+}
+
+/* ЦЕНТР */
+
+.center {
+    position: relative;
+    z-index: 5;
+
+    text-align: center;
+
+    animation: centerAppear 1.8s cubic-bezier(.16,1,.3,1);
+}
+
+.small-title {
+    color: #9c8061;
+
+    font-size: 14px;
+    letter-spacing: 7px;
+
+    text-transform: uppercase;
+
+    margin-bottom: 22px;
+
+    opacity: 0;
+    animation: fadeUp 1s ease .4s forwards;
+}
+
+.title {
+    font-size: clamp(48px, 9vw, 120px);
+
+    line-height: .95;
+
+    color: #6f5137;
+
+    font-weight: 700;
+
+    text-shadow:
+        0 3px 0 #fff,
+        0 10px 35px rgba(90,60,30,.15);
+
+    opacity: 0;
+
+    animation:
+        titleAppear 1.5s cubic-bezier(.16,1,.3,1) .7s forwards;
+}
+
+.subtitle {
+    margin-top: 28px;
+
+    color: #9c8061;
+
+    font-size: 17px;
+    letter-spacing: 4px;
+
+    opacity: 0;
+
+    animation: fadeUp 1s ease 1.5s forwards;
+}
+
+/* ДЕКОРАТИВНАЯ ЛИНИЯ */
+
+.line {
+    width: 0;
+    height: 1px;
+
+    background: #b99b78;
+
+    margin: 28px auto 0;
+
+    animation: lineAppear 1.2s ease 1.8s forwards;
+}
+
+/* ПОДАРКИ */
+
+.gift {
+    position: absolute;
+
+    font-size: 90px;
+
+    z-index: 3;
+
+    filter:
+        drop-shadow(0 15px 20px rgba(80,50,20,.18));
+
+    animation: giftFloat 4s ease-in-out infinite;
+}
+
+.gift1 {
+    left: 8%;
+    bottom: 12%;
+
+    transform: rotate(-12deg);
+
+    animation-delay: .4s;
+}
+
+.gift2 {
+    right: 8%;
+    bottom: 13%;
+
+    transform: rotate(10deg);
+
+    animation-delay: 1.2s;
+}
+
+.gift3 {
+    left: 13%;
+    top: 12%;
+
+    font-size: 65px;
+
+    transform: rotate(12deg);
+
+    animation-delay: 2s;
+}
+
+.gift4 {
+    right: 14%;
+    top: 10%;
+
+    font-size: 70px;
+
+    transform: rotate(-10deg);
+
+    animation-delay: 1.6s;
+}
+
+/* ХЛОПУШКИ */
+
+.party {
+    position: absolute;
+
+    font-size: 75px;
+
+    z-index: 4;
+
+    filter:
+        drop-shadow(0 10px 15px rgba(80,50,20,.15));
+
+    animation: partyFloat 3.5s ease-in-out infinite;
+}
+
+.party1 {
+    left: 5%;
+    top: 42%;
+
+    transform: rotate(-25deg);
+}
+
+.party2 {
+    right: 5%;
+    top: 43%;
+
+    transform: rotate(25deg);
+
+    animation-delay: 1s;
+}
+
+/* БЛЁСТКИ */
+
+.sparkle {
+    position: absolute;
+
+    color: #b99b78;
+
+    font-size: 22px;
+
+    animation: sparkle 3s ease-in-out infinite;
+}
+
+.s1 {
+    left: 25%;
+    top: 18%;
+}
+
+.s2 {
+    right: 25%;
+    top: 22%;
+
+    animation-delay: 1s;
+}
+
+.s3 {
+    left: 24%;
+    bottom: 22%;
+
+    animation-delay: 1.8s;
+}
+
+.s4 {
+    right: 24%;
+    bottom: 20%;
+
+    animation-delay: 2.4s;
+}
+
+/* КОНФЕТТИ */
+
+.confetti {
+    position: absolute;
+
+    top: -30px;
+
+    width: 8px;
+    height: 18px;
+
+    z-index: 2;
+
+    animation: fall linear infinite;
+}
+
+/* АНИМАЦИИ */
+
+@keyframes centerAppear {
+    from {
+        transform: scale(.85);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}
+
+@keyframes titleAppear {
+    from {
+        opacity: 0;
+        transform: translateY(35px) scale(.92);
+        filter: blur(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes lineAppear {
+    to {
+        width: 180px;
+    }
+}
+
+@keyframes giftFloat {
+    0%, 100% {
+        transform: translateY(0) rotate(-10deg);
+    }
+
+    50% {
+        transform: translateY(-18px) rotate(-5deg);
+    }
+}
+
+@keyframes partyFloat {
+    0%, 100% {
+        transform: translateY(0) rotate(-20deg);
+    }
+
+    50% {
+        transform: translateY(-15px) rotate(-12deg);
+    }
+}
+
+@keyframes sparkle {
+    0%, 100% {
+        opacity: .25;
+        transform: scale(.7) rotate(0);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.4) rotate(180deg);
+    }
+}
+
+@keyframes fall {
+    to {
+        transform:
+            translateY(110vh)
+            rotate(720deg);
+    }
+}
+
+/* МОБИЛЬНЫЙ */
+
+@media (max-width: 600px) {
+
+    .title {
+        font-size: 52px;
+    }
+
+    .gift {
+        font-size: 55px;
+    }
+
+    .party {
+        font-size: 48px;
+    }
+
+    .gift1 {
+        left: 3%;
+    }
+
+    .gift2 {
+        right: 3%;
+    }
+
+    .party1 {
+        left: 1%;
+    }
+
+    .party2 {
+        right: 1%;
+    }
+
+}
+</style>
+</head>
+
+<body>
+
+<div class="birthday">
+
+    <!-- ПОДАРКИ -->
+
+    <div class="gift gift1">🎁</div>
+    <div class="gift gift2">🎁</div>
+    <div class="gift gift3">🎁</div>
+    <div class="gift gift4">🎁</div>
+
+    <!-- ХЛОПУШКИ -->
+
+    <div class="party party1">🎉</div>
+    <div class="party party2">🎊</div>
+
+    <!-- БЛЁСТКИ -->
+
+    <div class="sparkle s1">✦</div>
+    <div class="sparkle s2">✧</div>
+    <div class="sparkle s3">✦</div>
+    <div class="sparkle s4">✧</div>
+
+    <!-- ТЕКСТ -->
+
+    <div class="center">
+
+        <div class="small-title">
+            Сегодня особенный день
+        </div>
+
+        <div class="title">
+            С Днём<br>
+            Рождения!
+        </div>
+
+        <div class="subtitle">
+            ✦ для самого лучшего друга ✦
+        </div>
+
+        <div class="line"></div>
+
+    </div>
+
+    <!-- КОНФЕТТИ -->
+
+    <div id="confetti"></div>
+
+</div>
+
+
+<script>
+
+const container = document.getElementById("confetti");
+
+const colors = [
+    "#b99b78",
+    "#d6b98c",
+    "#8c6b4b",
+    "#ffffff",
+    "#e2c7a6"
+];
+
+for (let i = 0; i < 100; i++) {
+
+    const piece = document.createElement("div");
+
+    piece.className = "confetti";
+
+    piece.style.left =
+        Math.random() * 100 + "vw";
+
+    piece.style.background =
+        colors[Math.floor(Math.random() * colors.length)];
+
+    piece.style.animationDuration =
+        (5 + Math.random() * 6) + "s";
+
+    piece.style.animationDelay =
+        Math.random() * 5 + "s";
+
+    piece.style.transform =
+        `rotate(${Math.random() * 360}deg)`;
+
+    container.appendChild(piece);
+}
+
+</script>
+
+</body>
+</html>
