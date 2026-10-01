@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>С Днём Рождения!</title>
 
 <style>
@@ -14,8 +15,7 @@
 
 body {
     overflow: hidden;
-    background: #dcebd8;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: Arial, sans-serif;
 }
 
 .scene {
@@ -28,187 +28,123 @@ body {
     justify-content: center;
 
     overflow: hidden;
-
-    background:
-        radial-gradient(
-            circle at 50% 45%,
-            #ffffff 0%,
-            #eef6eb 35%,
-            #c8ddc4 100%
-        );
+    background: #111;
 }
 
-/* Свет в центре */
+/* ФОТО НА ФОНЕ */
 
 .scene::before {
     content: "";
     position: absolute;
+    inset: -25px;
 
-    width: 600px;
-    height: 600px;
+    background-image:
+        linear-gradient(
+            rgba(0, 25, 35, .25),
+            rgba(0, 25, 35, .35)
+        ),
+        url("background.png");
 
-    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
 
-    background: white;
+    filter: blur(8px);
 
-    filter: blur(110px);
-    opacity: .55;
+    transform: scale(1.04);
+
+    z-index: 0;
+}
+
+/* ЛЁГКОЕ СВЕЧЕНИЕ */
+
+.scene::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(255,255,255,.18),
+            transparent 45%
+        );
+
+    z-index: 1;
 }
 
 /* ЦЕНТР */
 
-.center {
+.content {
     position: relative;
-    z-index: 10;
+    z-index: 5;
 
     text-align: center;
 
-    animation: entrance 1.3s cubic-bezier(.16,1,.3,1);
+    color: white;
+
+    animation: show 1.2s ease;
 }
 
-/* Маленькая надпись */
+/* маленькая надпись */
 
-.top {
-    margin-bottom: 25px;
+.small {
+    font-size: 13px;
+    letter-spacing: 5px;
 
-    color: #66806a;
+    opacity: .85;
 
-    font-size: 12px;
-    font-weight: bold;
-
-    letter-spacing: 6px;
+    margin-bottom: 20px;
 
     text-transform: uppercase;
-
-    animation: fade .9s ease;
 }
 
-/* ГЛАВНОЕ ПОЗДРАВЛЕНИЕ */
+/* ГЛАВНАЯ НАДПИСЬ */
 
-.title {
-    display: flex;
-    flex-direction: column;
+h1 {
+    font-size: clamp(52px, 9vw, 110px);
 
-    gap: 5px;
+    font-weight: 700;
 
-    font-family:
-        Impact,
-        "Arial Black",
-        Arial,
-        sans-serif;
+    line-height: .95;
 
-    font-weight: 900;
-
-    font-size: clamp(48px, 8vw, 110px);
-
-    line-height: .9;
-
-    letter-spacing: -3px;
-
-    color: #304c35;
+    letter-spacing: -2px;
 
     text-shadow:
-        5px 5px 0 #a9c7a5,
-        10px 14px 30px rgba(45,75,50,.18);
-
-    transform: skew(-4deg);
+        0 3px 15px rgba(0,0,0,.45),
+        0 0 25px rgba(50,240,255,.35);
 }
 
-/* Разные наклоны строк */
-
-.title .line1 {
-    transform: rotate(-2deg);
+h1 span {
+    color: #8fffff;
 }
 
-.title .line2 {
-    transform: rotate(2deg);
+/* ЛИНИЯ */
+
+.line {
+    width: 90px;
+    height: 3px;
+
+    background: #7ff7ff;
+
+    margin: 25px auto;
+
+    border-radius: 10px;
+
+    box-shadow:
+        0 0 15px #7ff7ff;
 }
 
-/* Нижняя подпись */
+/* НИЖНИЙ ТЕКСТ */
 
-.bottom {
-    margin-top: 30px;
+.message {
+    font-size: 15px;
 
-    color: #607a64;
+    letter-spacing: 2px;
 
-    font-size: 14px;
-    font-weight: bold;
+    opacity: .9;
 
-    letter-spacing: 4px;
-
-    animation: fade 1s ease .8s both;
-}
-
-/* ПОДАРКИ */
-
-.gift {
-    position: absolute;
-
-    z-index: 5;
-
-    font-size: 65px;
-
-    filter:
-        drop-shadow(0 12px 12px rgba(40,70,40,.18));
-
-    animation: float 4s ease-in-out infinite;
-}
-
-.gift1 {
-    left: 7%;
-    bottom: 10%;
-    transform: rotate(-12deg);
-}
-
-.gift2 {
-    right: 7%;
-    bottom: 11%;
-    transform: rotate(12deg);
-    animation-delay: 1s;
-}
-
-.gift3 {
-    left: 10%;
-    top: 12%;
-
-    font-size: 45px;
-
-    animation-delay: 1.5s;
-}
-
-.gift4 {
-    right: 10%;
-    top: 13%;
-
-    font-size: 48px;
-
-    animation-delay: 2s;
-}
-
-/* ХЛОПУШКИ */
-
-.party {
-    position: absolute;
-
-    z-index: 6;
-
-    font-size: 60px;
-
-    animation: party 3s ease-in-out infinite;
-}
-
-.party1 {
-    left: 3%;
-    top: 45%;
-    transform: rotate(-25deg);
-}
-
-.party2 {
-    right: 3%;
-    top: 44%;
-    transform: rotate(25deg);
-
-    animation-delay: 1s;
+    text-shadow:
+        0 2px 8px rgba(0,0,0,.5);
 }
 
 /* ЗВЁЗДЫ */
@@ -216,37 +152,42 @@ body {
 .star {
     position: absolute;
 
-    color: #6f906f;
+    z-index: 4;
 
-    font-size: 25px;
+    color: white;
 
-    animation: sparkle 2.5s ease-in-out infinite;
+    font-size: 20px;
+
+    text-shadow:
+        0 0 12px #65f7ff;
+
+    animation: sparkle 2s infinite;
 }
 
-.s1 {
-    left: 22%;
+.star1 {
+    left: 15%;
     top: 20%;
 }
 
-.s2 {
-    right: 22%;
-    top: 23%;
+.star2 {
+    right: 15%;
+    top: 25%;
 
     animation-delay: .7s;
 }
 
-.s3 {
-    left: 22%;
-    bottom: 21%;
-
-    animation-delay: 1.4s;
-}
-
-.s4 {
-    right: 22%;
+.star3 {
+    left: 20%;
     bottom: 20%;
 
-    animation-delay: 2s;
+    animation-delay: 1.2s;
+}
+
+.star4 {
+    right: 20%;
+    bottom: 18%;
+
+    animation-delay: 1.7s;
 }
 
 /* КОНФЕТТИ */
@@ -254,10 +195,12 @@ body {
 .confetti {
     position: absolute;
 
-    top: -25px;
+    top: -20px;
 
-    width: 7px;
-    height: 16px;
+    width: 5px;
+    height: 12px;
+
+    z-index: 3;
 
     border-radius: 2px;
 
@@ -266,11 +209,11 @@ body {
 
 /* АНИМАЦИИ */
 
-@keyframes entrance {
+@keyframes show {
     from {
         opacity: 0;
-        transform: scale(.7);
-        filter: blur(15px);
+        transform: scale(.92);
+        filter: blur(8px);
     }
 
     to {
@@ -280,47 +223,15 @@ body {
     }
 }
 
-@keyframes fade {
-    from {
-        opacity: 0;
-        transform: translateY(15px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-@keyframes float {
-    0%, 100% {
-        transform: translateY(0) rotate(-10deg);
-    }
-
-    50% {
-        transform: translateY(-18px) rotate(-4deg);
-    }
-}
-
-@keyframes party {
-    0%, 100% {
-        transform: translateY(0) rotate(-20deg);
-    }
-
-    50% {
-        transform: translateY(-15px) rotate(-8deg);
-    }
-}
-
 @keyframes sparkle {
-    0%, 100% {
+    0%,100% {
         opacity: .25;
-        transform: scale(.7) rotate(0);
+        transform: scale(.7);
     }
 
     50% {
         opacity: 1;
-        transform: scale(1.5) rotate(180deg);
+        transform: scale(1.4);
     }
 }
 
@@ -328,7 +239,7 @@ body {
     to {
         transform:
             translateY(110vh)
-            rotate(720deg);
+            rotate(500deg);
     }
 }
 
@@ -336,27 +247,17 @@ body {
 
 @media (max-width: 600px) {
 
-    .title {
-        font-size: 50px;
-        letter-spacing: -2px;
+    h1 {
+        font-size: 52px;
     }
 
-    .gift {
-        font-size: 42px;
-    }
-
-    .party {
-        font-size: 40px;
-    }
-
-    .top {
+    .small {
         font-size: 9px;
-        letter-spacing: 4px;
+        letter-spacing: 3px;
     }
 
-    .bottom {
-        font-size: 10px;
-        letter-spacing: 2px;
+    .message {
+        font-size: 11px;
     }
 }
 </style>
@@ -366,52 +267,29 @@ body {
 
 <div class="scene">
 
-    <!-- ПОДАРКИ -->
+    <div class="star star1">✦</div>
+    <div class="star star2">✧</div>
+    <div class="star star3">✦</div>
+    <div class="star star4">✧</div>
 
-    <div class="gift gift1">🎁</div>
-    <div class="gift gift2">🎁</div>
-    <div class="gift gift3">🎁</div>
-    <div class="gift gift4">🎁</div>
+    <div class="content">
 
-    <!-- ХЛОПУШКИ -->
-
-    <div class="party party1">🎉</div>
-    <div class="party party2">🎊</div>
-
-    <!-- ЗВЁЗДЫ -->
-
-    <div class="star s1">✦</div>
-    <div class="star s2">✧</div>
-    <div class="star s3">✦</div>
-    <div class="star s4">✧</div>
-
-    <!-- ГЛАВНЫЙ ТЕКСТ -->
-
-    <div class="center">
-
-        <div class="top">
-            TODAY IS YOUR DAY
+        <div class="small">
+            Для самого лучшего друга
         </div>
 
-        <div class="title">
+        <h1>
+            С Днём<br>
+            <span>Рождения!</span>
+        </h1>
 
-            <div class="line1">
-                С ДНЁМ
-            </div>
+        <div class="line"></div>
 
-            <div class="line2">
-                РОЖДЕНИЯ!
-            </div>
-
-        </div>
-
-        <div class="bottom">
-            🎂 СЧАСТЬЯ • РАДОСТИ • УДАЧИ 🎂
+        <div class="message">
+            Пусть этот день запомнится надолго ✦
         </div>
 
     </div>
-
-    <!-- КОНФЕТТИ -->
 
     <div id="confetti"></div>
 
@@ -423,14 +301,12 @@ const container =
     document.getElementById("confetti");
 
 const colors = [
-    "#304c35",
-    "#57705b",
-    "#8aaa8b",
-    "#d4b85a",
-    "#ffffff"
+    "#ffffff",
+    "#7ff7ff",
+    "#45e9f5"
 ];
 
-for (let i = 0; i < 100; i++) {
+for (let i = 0; i < 60; i++) {
 
     const piece =
         document.createElement("div");
@@ -448,7 +324,7 @@ for (let i = 0; i < 100; i++) {
         ];
 
     piece.style.animationDuration =
-        (4 + Math.random() * 5) + "s";
+        (5 + Math.random() * 5) + "s";
 
     piece.style.animationDelay =
         Math.random() * 5 + "s";
